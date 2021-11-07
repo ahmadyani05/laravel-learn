@@ -1,0 +1,8 @@
+{
+    "files.autoSave": "off",
+    "window.zoomLevel": 1,
+    "workbench.colorTheme": "Umbra",
+    "editor.fontFamily": "Fira Code Medium",
+    "editor.fontLigatures": true,
+    "terminal.integrated.fontFamily": "monospace"
+}
