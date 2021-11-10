@@ -26,8 +26,6 @@ Route::view('/', 'home.index')
 Route::view('/contact', 'home.contact')
     ->name('home.contact');
 
-
-Route::get('/posts/{id}', function($id){
     $posts = [
         1 => [
             'title' => 'Intro to Laravel',
@@ -41,13 +39,17 @@ Route::get('/posts/{id}', function($id){
             'is_new' => false
         ]
     ];
+
+Route::get('/posts', function () use ($posts) {
+    // compact($posts) === ['posts' => $posts]
+    // $posts = $posts;
+    return view('posts.index', ['posts' => $posts]); 
+});
+
+Route::get('/posts/{id}', function($id){
     abort_if(!isset($posts[$id]), 404);
-    return view('posts.show',['post' => $posts[$id]]);    
-})
-        // ->where([
-        //     'id' => '[0-9]+'
-        // ])
-->name('posts.show');
+    return view('posts.show',['post' => $posts[$id]]);}) 
+    ->name('posts.show');
 
 Route::get('/recent-posts/{days_ago?}', function($daysAgo = 20){
     return 'Post from ' . $daysAgo . ' days ago';
