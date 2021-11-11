@@ -46,7 +46,7 @@ Route::get('/posts', function () use ($posts) {
     return view('posts.index', ['posts' => $posts]); 
 });
 
-Route::get('/posts/{id}', function($id){
+Route::get('/posts/{id}', function($id) use ($posts) {
     abort_if(!isset($posts[$id]), 404);
     return view('posts.show',['post' => $posts[$id]]);}) 
     ->name('posts.show');
@@ -54,3 +54,21 @@ Route::get('/posts/{id}', function($id){
 Route::get('/recent-posts/{days_ago?}', function($daysAgo = 20){
     return 'Post from ' . $daysAgo . ' days ago';
 })->name('posts.recent.index');
+
+Route::get('/fun/responses', function ()  use($posts) {
+    return response($posts, 201)
+    ->header('Content-Type','application/json')
+    ->cookie('MY_COOKIE', 'Ahmad Yani', 3600);
+});
+
+Route::get('/fun/redirect', function () {
+    return redirect('/contact');
+});
+
+Route::get('/fun/back', function () {
+    return back();
+});
+
+Route::get('/fun/named-route', function () {
+    return redirect()->route('posts.show', ['id' => 1]);
+});
